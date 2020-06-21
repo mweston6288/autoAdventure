@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import { JobService } from '../job.service';
 import { ActiveJobsService } from '../active-jobs.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class AdventurerService {
+export class MageService {
+
   levelUp(level: number): void {
-    if (level === 5) {
-      this.activeJobs.add(1);
-      this.activeJobs.add(2);
-      this.activeJobs.add(3);
+    if (level === 10) {
+      this.activeJobs.add(6);
+      this.activeJobs.add(7);
     }
   }
 
