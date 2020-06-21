@@ -2,22 +2,26 @@ import { Injectable } from '@angular/core';
 import { Job } from './job';
 import { of, Observable } from 'rxjs';
 import { Jobs } from './job-list';
+import { AdventurerService } from './jobEvents/adventurer.service';
+import { ActiveJobsService } from './active-jobs.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-  activeJobs: Job[] = [];
   
 
   getJobs(): Observable<Job[]>{
-    return of(this.activeJobs);
+    return of(this.activeJobs.getJobs());
   }
-  add(id: number){
-    this.activeJobs.push(Jobs[id]);
+  levelUp(job: Job){
+    switch(job.name){
+      case "Adventurer":
+        this.adventurer.levelUp(job.level);
+    }
   }
 
-  constructor() {
-    this.activeJobs.push(Jobs[0])
+  constructor(private activeJobs: ActiveJobsService,private adventurer: AdventurerService) {
+    this.activeJobs.add(Jobs[0].id)
    }
 }

@@ -1,27 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {Jobs} from "../job-list"
 import { JobService } from '../job.service';
+import { Job } from '../job';
 @Component({
   selector: 'app-jobs',
   templateUrl: './jobs.component.html',
   styleUrls: ['./jobs.component.css']
 })
 export class JobsComponent implements OnInit {
-  jobs = Jobs;
-  constructor(private jobService: JobService) { }
+  jobs: Job[];
 
-  ngOnInit(): void {
+  constructor(private jobService: JobService) {
+    console.log(jobService);
+   }
+
+   ngOnInit(): void {
     this.jobService.getJobs()
-      .subscribe(res=>this.jobs=res)
+      .subscribe(res=>{
+        this.jobs=res;
+        console.log(res)
+      })
   }
-  handleClick(jobId: number, jobLevel: number): void{
-    console.log(jobId);
-    console.log(jobLevel);
-    var job=this.jobs.find(x=>x.id === jobId);
+  handleClick(job:Job): void {
     job.level++;
-    if (job.level >=5){
-      this.jobService.add(1);
-    }
     console.log(this.jobs);
+    this.jobService.levelUp(job);
+    if (job.level === 5) {
+    }
   }
 }
