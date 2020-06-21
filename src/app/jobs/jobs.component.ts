@@ -14,5 +14,7 @@ export class JobsComponent implements OnInit {
   handleClick(jobId: number, jobLevel: number): void{
     console.log(jobId);
     console.log(jobLevel);
+    var job=this.jobs.find(x=>x.id === jobId);
+    job.level++;
   }
 }
